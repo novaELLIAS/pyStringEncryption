@@ -18,7 +18,7 @@ class SingleReplaceEncryptor(object):
         SingleReplaceEncryptor.dicEnc.clear()
         SingleReplaceEncryptor.dicDec.clear()
 
-        for i in range(94):
+        for i in range(len(oriAlphabet)):
             SingleReplaceEncryptor.dicEnc[oriAlphabet[i]] = encAlphabet[i]
             SingleReplaceEncryptor.dicDec[encAlphabet[i]] = oriAlphabet[i]
 
