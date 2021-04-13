@@ -3,7 +3,6 @@
 import random
 
 
-
 class SingleReplaceEncryptor(object):
 
     dicEnc = dict()
@@ -23,12 +22,10 @@ class SingleReplaceEncryptor(object):
             SingleReplaceEncryptor.dicDec[encAlphabet[i]] = oriAlphabet[i]
 
     def printDic(self):
-        #print(SingleReplaceEncryptor.dicEnc)
         for key in SingleReplaceEncryptor.dicEnc.keys():
             print("{} -> {}".format(key, SingleReplaceEncryptor.dicEnc[key]))
 
     def convertChar(self, src: str, isEnc: bool) -> str:
-        ret = ''
         if 33 <= ord(src) < 127:
             if isEnc:
                 return SingleReplaceEncryptor.dicEnc[src]
