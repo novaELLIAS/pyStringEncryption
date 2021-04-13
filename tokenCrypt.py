@@ -27,16 +27,16 @@ class TokenEncryptor:
         dicEncTmp = list()
         for i in TokenEncryptor.token:
             dicEncTmp.append(ord(i))
-        print(dicEncTmp)
+        #print(dicEncTmp)
         for i in range(ord("a"), ord("z") + 1):
             if chr(i) not in TokenEncryptor.token:
                 dicEncTmp.append(i)
-        print(dicEncTmp)
+        #print(dicEncTmp)
         for i in range(len(dicEncTmp)):
             TokenEncryptor.dicEnc[chr(ord("a") + (i + TokenEncryptor.startPos) % 26)] = chr(dicEncTmp[i])
             TokenEncryptor.dicDec[chr(dicEncTmp[i])] = chr(ord("a") + (i + TokenEncryptor.startPos) % 26)
-        print(TokenEncryptor.dicEnc)
-        print(TokenEncryptor.dicDec)
+        #print(TokenEncryptor.dicEnc)
+        #print(TokenEncryptor.dicDec)
 
     def printToken(self):
         print("token: ", end="")
