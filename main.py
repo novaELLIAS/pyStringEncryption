@@ -31,23 +31,31 @@ def caseSingleReplace():
 
 def caseToken():
     tk = tokenCrypt.TokenEncryptor()
+    readFromFileFlag = 0
     while 1:
+        opt = input("Read from file or input? (R/else): ")
+        readFromFileFlag = opt == "R"
         opt = input("Option? Show token (S), encrypt (E), return (R), decrypt (else): ")
         if opt == "R":
             return
         elif opt == "S":
             tk.printToken()
         else:
-            src = input("Please input string ori: ")
+            if readFromFileFlag:
+                src = ""
+            else:
+                src = input("Please input string ori: ")
             print(tk.encrypt(src, opt == "E"))
 
 
 if __name__ == '__main__':
     while 1:
-        mode = input("Please select mode. 1 for ASCII offset, 2 for char replace, 3 for token: ")
+        mode = input("Please select mode. 1 for ASCII offset, 2 for char replace, 3 for token, else to exit: ")
         if mode == "1":
             caseASCIIoffset()
         elif mode == "2":
             caseSingleReplace()
         elif mode == "3":
             caseToken()
+        else:
+            exit(0)

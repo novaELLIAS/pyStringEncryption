@@ -11,7 +11,7 @@ class TokenEncryptor:
     dicDec = dict()
 
     def __init__(self):
-        opt = input("Generate or input token? (G/else): ")
+        opt = input("Generate or already have token? (G/else): ")
         if opt == "G":
             opt = int(input("Len: "))
             TokenEncryptor.token = util.generate_random_str(opt)
@@ -21,8 +21,18 @@ class TokenEncryptor:
             print("startPos: ", end="")
             print(TokenEncryptor.startPos)
         else:
-            TokenEncryptor.token = list(input("Please input your token: "))
-            TokenEncryptor.startPos = int(input("Please input your startPos: "))
+            opt = input("Input or read from file? (I/else): ")
+            if opt == "I":
+                TokenEncryptor.token = list(input("Please input your token: "))
+                TokenEncryptor.startPos = int(input("Please input your startPos: "))
+            else:
+                with open("./src/token.txt", "r") as file:
+                    TokenEncryptor.token = list(file.readline())
+                    TokenEncryptor.token = TokenEncryptor.token[:-1]
+                    print(TokenEncryptor.token)
+                    TokenEncryptor.startPos = int(file.readline())
+                    print(TokenEncryptor.startPos)
+        TokenEncryptor.saveTokenToFile(self)
         TokenEncryptor.token = util.remove_same_str(TokenEncryptor.token)
         dicEncTmp = list()
         for i in TokenEncryptor.token:
@@ -33,6 +43,13 @@ class TokenEncryptor:
         for i in range(len(dicEncTmp)):
             TokenEncryptor.dicEnc[chr(ord("a") + (i + TokenEncryptor.startPos) % 26)] = chr(dicEncTmp[i])
             TokenEncryptor.dicDec[chr(dicEncTmp[i])] = chr(ord("a") + (i + TokenEncryptor.startPos) % 26)
+
+    def saveTokenToFile(self):
+        with open("./src/token.txt", "w") as file:
+            file.write("".join(TokenEncryptor.token))
+            file.write("\n")
+            file.write(str(TokenEncryptor.startPos))
+            file.write("\n")
 
     def printToken(self):
         print("token: ", end="")
@@ -51,6 +68,10 @@ class TokenEncryptor:
 
     def encrypt(self, src: str, isEnc: bool) -> str:
         ret = ""
+        if src == "":
+            src = util.read_str_to_file("./src/text.in")
+            print(src)
         for ch in src:
             ret += TokenEncryptor.convertChar(self, ch, isEnc)
+        util.write_str_to_file(ret, "./src/text.out")
         return ret

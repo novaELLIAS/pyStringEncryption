@@ -16,3 +16,14 @@ def remove_same_str(src: list) -> list:
         if i not in ret:
             ret.append(i)
     return ret
+
+
+def write_str_to_file(src: str, tar: str):
+    with open(tar, "w") as file:
+        file.write(src)
+        file.write("\n")
+
+
+def read_str_to_file(tar: str) -> str:
+    with open(tar, "r") as file:
+        return file.read().strip().replace('\n', '').replace('\t', '').replace('\r', '').strip()
