@@ -6,7 +6,7 @@ class ASCIIoffsetEncryptor:
     offset = 0
 
     def __init__(self, offset: int):
-        ASCIIoffsetEncryptor.offset = offset
+        ASCIIoffsetEncryptor.offset = offset % 94
 
     def convertChar(self, src: str, flag: bool) -> str:
         if 33 <= ord(src) <= 126:
