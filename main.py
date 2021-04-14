@@ -15,6 +15,7 @@ def caseASCIIoffset():
         src = input("Please input string ori: ")
         print(ASCIIencryptor.encrypt(src, opt == "E"))
 
+
 def caseSingleReplace():
     srEncryptor = SingleReplace.SingleReplaceEncryptor()
     while 1:
@@ -27,6 +28,7 @@ def caseSingleReplace():
             src = input("Please input string ori: ")
             print(srEncryptor.encrypt(src, opt == "E"))
 
+
 def caseToken():
     tk = tokenCrypt.TokenEncryptor()
     while 1:
@@ -38,6 +40,7 @@ def caseToken():
         else:
             src = input("Please input string ori: ")
             print(tk.encrypt(src, opt == "E"))
+
 
 if __name__ == '__main__':
     while 1:

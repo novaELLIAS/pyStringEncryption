@@ -1,7 +1,9 @@
-# TetrisConsole
-A tetris game on windows console written in C++.
+# pyStringEncryption
+Assignment for python courses, BUPT 2021.
 
-For Course de Introduction to Data Structure and Algorithm Analysis, BUPT 2021.
+- Random substitution encryption
+- ASCII offset encryption
+- Key encryption (token encryption)
 
 ## Statistics
 

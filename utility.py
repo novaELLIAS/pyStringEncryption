@@ -9,6 +9,7 @@ def generate_random_str(len: int) -> list:
         ret.append(chr(random.randint(ord('a'), ord('z'))))
     return ret
 
+
 def remove_same_str(src: list) -> list:
     ret = list()
     for i in src:
