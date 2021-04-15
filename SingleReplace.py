@@ -14,28 +14,28 @@ class SingleReplaceEncryptor(object):
         encAlphabet = oriAlphabet.copy()
         random.shuffle(encAlphabet)
 
-        SingleReplaceEncryptor.dicEnc.clear()
-        SingleReplaceEncryptor.dicDec.clear()
+        self.dicEnc.clear()
+        self.dicDec.clear()
 
         for i in range(len(oriAlphabet)):
-            SingleReplaceEncryptor.dicEnc[oriAlphabet[i]] = encAlphabet[i]
-            SingleReplaceEncryptor.dicDec[encAlphabet[i]] = oriAlphabet[i]
+            self.dicEnc[oriAlphabet[i]] = encAlphabet[i]
+            self.dicDec[encAlphabet[i]] = oriAlphabet[i]
 
     def printDic(self):
-        for key in SingleReplaceEncryptor.dicEnc.keys():
-            print("{} -> {}".format(key, SingleReplaceEncryptor.dicEnc[key]))
+        for key in self.dicEnc.keys():
+            print("{} -> {}".format(key, self.dicEnc[key]))
 
     def convertChar(self, src: str, isEnc: bool) -> str:
         if 33 <= ord(src) < 127:
             if isEnc:
-                return SingleReplaceEncryptor.dicEnc[src]
+                return self.dicEnc[src]
             else:
-                return SingleReplaceEncryptor.dicDec[src]
+                return self.dicDec[src]
         else:
             return str
 
     def encrypt(self, src: str, isEnc: bool) -> str:
         ret = ''
         for ch in src:
-            ret += SingleReplaceEncryptor.convertChar(self, ch, isEnc)
+            ret += self.convertChar(ch, isEnc)
         return ret

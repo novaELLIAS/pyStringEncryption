@@ -14,55 +14,55 @@ class TokenEncryptor:
         opt = input("Generate or already have token? (G/else): ")
         if opt == "G":
             opt = int(input("Len: "))
-            TokenEncryptor.token = util.generate_random_str(opt)
-            TokenEncryptor.startPos = random.randint(0, 25)
+            self.token = util.generate_random_str(opt)
+            self.startPos = random.randint(0, 25)
             print("token: ", end="")
-            print(TokenEncryptor.token)
+            print(self.token)
             print("startPos: ", end="")
-            print(TokenEncryptor.startPos)
+            print(self.startPos)
         else:
             opt = input("Input or read from file? (I/else): ")
             if opt == "I":
-                TokenEncryptor.token = list(input("Please input your token: "))
-                TokenEncryptor.startPos = int(input("Please input your startPos: "))
+                self.token = list(input("Please input your token: "))
+                self.startPos = int(input("Please input your startPos: "))
             else:
                 with open("./src/token.txt", "r") as file:
-                    TokenEncryptor.token = list(file.readline())
-                    TokenEncryptor.token = TokenEncryptor.token[:-1]
-                    print(TokenEncryptor.token)
-                    TokenEncryptor.startPos = int(file.readline())
-                    print(TokenEncryptor.startPos)
-        TokenEncryptor.saveTokenToFile(self)
-        TokenEncryptor.token = util.remove_same_str(TokenEncryptor.token)
+                    self.token = list(file.readline())
+                    self.token = self.token[:-1]
+                    print(self.token)
+                    self.startPos = int(file.readline())
+                    print(self.startPos)
+        self.saveTokenToFile()
+        self.token = util.remove_same_str(self.token)
         dicEncTmp = list()
-        for i in TokenEncryptor.token:
+        for i in self.token:
             dicEncTmp.append(ord(i))
         for i in range(ord("a"), ord("z") + 1):
-            if chr(i) not in TokenEncryptor.token:
+            if chr(i) not in self.token:
                 dicEncTmp.append(i)
         for i in range(len(dicEncTmp)):
-            TokenEncryptor.dicEnc[chr(ord("a") + (i + TokenEncryptor.startPos) % 26)] = chr(dicEncTmp[i])
-            TokenEncryptor.dicDec[chr(dicEncTmp[i])] = chr(ord("a") + (i + TokenEncryptor.startPos) % 26)
+            self.dicEnc[chr(ord("a") + (i + self.startPos) % 26)] = chr(dicEncTmp[i])
+            self.dicDec[chr(dicEncTmp[i])] = chr(ord("a") + (i + self.startPos) % 26)
 
     def saveTokenToFile(self):
         with open("./src/token.txt", "w") as file:
-            file.write("".join(TokenEncryptor.token))
+            file.write("".join(self.token))
             file.write("\n")
-            file.write(str(TokenEncryptor.startPos))
+            file.write(str(self.startPos))
             file.write("\n")
 
     def printToken(self):
         print("token: ", end="")
-        print(TokenEncryptor.token)
+        print(self.token)
         print("startPos: ", end="")
-        print(TokenEncryptor.startPos)
+        print(self.startPos)
 
     def convertChar(self, src: str, isEnc: bool) -> str:
         if ord("a") <= ord(src) <= ord("z"):
             if isEnc:
-                return TokenEncryptor.dicEnc[src]
+                return self.dicEnc[src]
             else:
-                return TokenEncryptor.dicDec[src]
+                return self.dicDec[src]
         else:
             return src
 
@@ -72,6 +72,6 @@ class TokenEncryptor:
             src = util.read_str_to_file("./src/text.in")
             print(src)
         for ch in src:
-            ret += TokenEncryptor.convertChar(self, ch, isEnc)
+            ret += self.convertChar(ch, isEnc)
         util.write_str_to_file(ret, "./src/text.out")
         return ret
